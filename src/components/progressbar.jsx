@@ -48,7 +48,7 @@ const ProgressBar = ({ progress = 72, height = "h-7", animated = true }) => {
           {animated && (
             <motion.div
               initial={{ x: "-120%" }}
-              animate={{ x: "220%" }}
+              animate={{ x: "600%" }}
               transition={{
                 repeat: Infinity,
                 duration: 2,
