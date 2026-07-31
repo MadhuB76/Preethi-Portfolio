@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ProgressBar from "../components/progressbar";
 
 export default function ComingSoon() {
-  const targetProgress = 50;
+  const targetProgress = 100;
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
