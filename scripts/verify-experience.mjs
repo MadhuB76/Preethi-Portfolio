@@ -30,10 +30,32 @@ try {
     await page
       .locator(".title-spark")
       .evaluate((el) => getComputedStyle(el).color),
-    "rgb(37, 37, 37)",
-    "hero doodles use monochrome ink",
+    "rgb(162, 210, 223)",
+    "hero star uses the finalized blue accent",
+  );
+  assert.ok(
+    await page
+      .locator(".portfolio-title")
+      .evaluate(
+        (el) =>
+          Number(getComputedStyle(el.querySelector(".title-spark")).zIndex) >
+          Number(getComputedStyle(el.querySelector("h1")).zIndex),
+      ),
+    "hero star stays above surrounding decorative layers",
   );
   assert.equal(await page.locator(".portfolio-section").count(), 5);
+  await page.locator(".portrait-photo").evaluate((image) => image.decode());
+  assert.ok(
+    await page
+      .locator(".portrait-photo")
+      .evaluate(
+        (image) =>
+          image.naturalWidth > 0 &&
+          image.getAttribute("src").startsWith("/images/profile/"),
+      ),
+    "owner-supplied portrait loads locally",
+  );
+  assert.equal(await page.locator(".portrait-caption").innerText(), "PREETHI");
   assert.equal(await page.locator(".publication-entry").count(), 3);
   assert.equal(
     await page.locator(".hero-room-image,.experience,.opening-scenes").count(),
@@ -142,8 +164,18 @@ try {
   ];
   for (const [width, height] of sizes) {
     await page.setViewportSize({ width, height });
+    // Let the debounced pin rebuild finish before returning to the hero.
+    await page.waitForTimeout(550);
     await page.evaluate(() => scrollTo({ top: 0, behavior: "instant" }));
     await page.waitForTimeout(200);
+    assert.ok(
+      await page.locator(".portfolio-title").evaluate((el) => {
+        const star = el.querySelector(".title-spark").getBoundingClientRect();
+        const title = el.querySelector("h1").getBoundingClientRect();
+        return star.left >= 0 && star.right < title.left - 1;
+      }),
+      `star stays clear of the P and inside the screen at ${width}x${height}`,
+    );
     assert.ok(
       await page.evaluate(() => {
         const button = document
@@ -269,4 +301,3 @@ try {
   await browser?.close();
   await server.close();
 }
-

@@ -43,39 +43,28 @@ try {
     0,
     "no text sidebar",
   );
-  const colored = await page.evaluate(() =>
-    [...document.querySelectorAll("#root *")]
-      .filter((el) => !el.closest("svg"))
-      .flatMap((el) => {
-        const style = getComputedStyle(el);
-        return ["color", "backgroundColor", "borderTopColor"].flatMap(
-          (property) => {
-            const value = style[property],
-              parts = value.match(/[\d.]+/g)?.map(Number);
-            return parts?.length >= 3 &&
-              (parts.length < 4 || parts[3] > 0) &&
-              (Math.abs(parts[0] - parts[1]) > 1 ||
-                Math.abs(parts[1] - parts[2]) > 1)
-              ? [{ element: el.className, property, value }]
-              : [];
-          },
-        );
-      }),
-  );
+  const palette = await page.evaluate(() => {
+    const styles = getComputedStyle(document.documentElement);
+    return [
+      styles.getPropertyValue("--theme-pink").trim(),
+      styles.getPropertyValue("--theme-blue").trim(),
+      getComputedStyle(document.querySelector("#about")).backgroundColor,
+    ];
+  });
   assert.deepEqual(
-    colored,
-    [],
-    "site typography, surfaces and rules use the monochrome palette",
+    palette,
+    ["#f6d6d6", "#a2d2df", "rgb(246, 214, 214)"],
+    "finalized theme is applied to the skills canvas",
   );
   assert.ok(
     await page
-      .locator(".portfolio-canvas img")
+      .locator(".portfolio-canvas img:not(.hero-paint)")
       .evaluateAll((images) =>
         images.every((image) =>
           getComputedStyle(image).filter.includes("grayscale(1)"),
         ),
       ),
-    "all photographic and painted assets display in grayscale",
+    "editorial photographs stay monochrome within the new theme",
   );
   assert.ok(
     await page
@@ -83,7 +72,7 @@ try {
       .evaluateAll((els) =>
         els.every((el) => getComputedStyle(el).filter === "none"),
       ),
-    "monochrome treatment does not create new containing blocks for fixed scroll scenes",
+    "theme does not create new containing blocks for fixed scroll scenes",
   );
   const overlaps = (a, b) =>
     a.x < b.x + b.width - 1 &&
@@ -234,7 +223,7 @@ try {
     .screenshot({ path: "artifacts/skills-network-mobile.png" });
   assert.deepEqual(errors, []);
   console.log(
-    "PASS: organic grayscale network; all skills visible beside five nodes; no central node or skill rail; dots-only particles; label spacing; selection; hover/keyboard/Escape; reduced motion; touch; responsive layouts.",
+    "PASS: organic themed network; all skills visible beside five nodes; no central node or skill rail; dots-only particles; label spacing; selection; hover/keyboard/Escape; reduced motion; touch; responsive layouts.",
   );
 } finally {
   await browser?.close();

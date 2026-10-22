@@ -229,6 +229,10 @@ try {
     { width: 768, height: 1024 },
     { width: 844, height: 390 },
     { width: 1280, height: 720 },
+    { width: 1366, height: 600 },
+    { width: 1280, height: 640 },
+    { width: 1024, height: 600 },
+    { width: 1200, height: 500 },
   ]) {
     await page.setViewportSize(size);
     await page.waitForTimeout(650);
@@ -238,7 +242,7 @@ try {
       ),
       "no horizontal document overflow",
     );
-    if (size.width <= 900 || size.height <= 700) {
+    if (size.width <= 900) {
       assert.equal(await page.locator(".has-project-stage").count(), 0);
       assert.ok(
         await page
@@ -249,7 +253,34 @@ try {
       await page.screenshot({
         path: `artifacts/projects-vertical-${size.width}.png`,
       });
-    } else assert.equal(await page.locator(".has-project-stage").count(), 1);
+    } else {
+      assert.equal(
+        await page.locator(".has-project-stage").count(),
+        1,
+        "horizontal stage at laptop widths regardless of height",
+      );
+      const stops = await readStops();
+      for (let i = 0; i < stops.length; i++) {
+        await page.evaluate((y) => scrollTo(0, y), stops[i]);
+        await settled();
+        const bounds = await page
+          .locator(".project-screen")
+          .nth(i)
+          .boundingBox();
+        assert.ok(
+          Math.abs(bounds.y - 24) < 2 && bounds.x >= 0 && bounds.x < 50,
+          "each laptop project scrolls into the same pinned viewport",
+        );
+      }
+      await page.screenshot({
+        path:
+          "artifacts/projects-laptop-" +
+          size.width +
+          "-" +
+          size.height +
+          ".png",
+      });
+    }
   }
   assert.deepEqual(errors, []);
   console.log(

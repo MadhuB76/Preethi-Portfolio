@@ -84,3 +84,11 @@ The Skills composition now uses five irregular layered nodes in gray washes, wit
 ## Editorial contact / footer
 
 The supplied Studio reference informs the small upper signature, compact navigation, generous whitespace, and oversized lower-right Preethi wordmark. Pinterest minimalist line-art reference: https://www.pinterest.com/terriblehun/minimalist-doodle/ . The flower, smile, star, arrow, and coffee drawings are local code-native SVGs; the existing locally stored headphones character is reused. No Pinterest image is hotlinked. Social links and email render from site.socials and site.email in src/data/editorial.js; until real account URLs are supplied, the footer displays a clearly labeled coming-soon message instead of fabricated links.
+
+## Final pink and blue palette
+
+Owner-approved colors: #F6D6D6 and #A2D2DF. Theme tokens and dark ink variants live in src/styles/monochrome.css (the existing import name is retained). Original SVG watercolor pigments and Skills nodes use the final palette. Editorial photographs retain grayscale treatment. No new externally sourced artwork is introduced.
+
+## Owner-supplied portrait
+
+Preethi Profile.png was provided directly by the owner for the hero portrait. public/images/profile/preethi.webp is an optimized WebP copy; the circular CSS crop focuses on Preethi rather than the surrounding trees. The photo retains the site’s editorial grayscale treatment. No generated or substituted face is used.

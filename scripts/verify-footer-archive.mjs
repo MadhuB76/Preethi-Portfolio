@@ -61,6 +61,9 @@ try {
     [390, 844],
     [320, 667],
     [844, 390],
+    [1366, 600],
+    [1280, 640],
+    [1024, 600],
   ]) {
     await page.setViewportSize({ width, height });
     await page.waitForTimeout(400);
@@ -118,6 +121,25 @@ try {
         .evaluate((el) => el.scrollWidth <= el.clientWidth + 2),
       `wordmark fits at ${width}`,
     );
+    const doodles = await page
+      .locator(".archive-doodle-scene > *")
+      .evaluateAll((els) =>
+        els.map((el) => el.getBoundingClientRect().toJSON()),
+      );
+    for (let i = 0; i < doodles.length; i++)
+      for (let j = i + 1; j < doodles.length; j++) {
+        const a = doodles[i],
+          b = doodles[j];
+        assert.ok(
+          !(
+            a.x < b.x + b.width - 1 &&
+            a.x + a.width > b.x + 1 &&
+            a.y < b.y + b.height - 1 &&
+            a.y + a.height > b.y + 1
+          ),
+          "footer doodles do not overlap at " + width + "x" + height,
+        );
+      }
     const links = await page
       .locator(".archive-directory a")
       .evaluateAll((els) =>
@@ -174,7 +196,7 @@ try {
   assert.equal(await page.locator(":focus").getAttribute("href"), "#about");
   assert.deepEqual(errors, []);
   console.log(
-    "PASS: footer wordmark, local doodles, truthful social placeholders, four working chapter links, keyboard access, reduced motion, six responsive sizes, readable touch targets and no overflow.",
+    "PASS: footer wordmark, local doodles, truthful social placeholders, four working chapter links, keyboard access, reduced motion, nine responsive sizes, readable touch targets and no overflow.",
   );
 } finally {
   await browser?.close();

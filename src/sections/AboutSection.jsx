@@ -3,7 +3,13 @@ import { skillCategories } from "../data/editorial";
 import SkillsParticles from "../components/SkillsParticles";
 import "../styles/skills-orbits.css";
 
-const shades = ["#494949", "#a0a0a0", "#777777", "#c2c2c2", "#616161"];
+const shades = [
+  "color-mix(in srgb, var(--theme-blue) 60%, #171717)",
+  "var(--theme-blue)",
+  "color-mix(in srgb, var(--theme-pink) 70%, #777)",
+  "color-mix(in srgb, var(--theme-blue) 75%, white)",
+  "color-mix(in srgb, var(--theme-blue) 75%, #333)",
+];
 const pairs = [
   [0, 1],
   [0, 2],

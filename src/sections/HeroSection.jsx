@@ -68,39 +68,19 @@ export default function HeroSection({ onOpen, triggerRef, open }) {
                 strokeLinecap="round"
               />
             </svg>
-            <svg
-              viewBox="0 0 260 260"
-              role="img"
-              aria-label="Temporary silhouette placeholder for Preethi’s portrait"
-            >
-              <defs>
-                <clipPath id="portrait-circle">
-                  <circle cx="130" cy="130" r="124" />
-                </clipPath>
-                <pattern
-                  id="portrait-lines"
-                  width="15"
-                  height="15"
-                  patternUnits="userSpaceOnUse"
-                >
-                  <path d="M0 15 15 0" stroke="#c7c4bd" strokeWidth=".5" />
-                </pattern>
-              </defs>
-              <g clipPath="url(#portrait-circle)">
-                <rect width="260" height="260" fill="#e0ded7" />
-                <rect width="260" height="260" fill="url(#portrait-lines)" />
-                <circle cx="130" cy="105" r="43" fill="#343432" />
-                <path d="M38 274q0-111 92-111t92 111" fill="#343432" />
-                <path
-                  d="M107 162q22 26 46 0"
-                  fill="none"
-                  stroke="#b7b4ab"
-                  strokeWidth="2"
-                />
-              </g>
-            </svg>
+            <div className="portrait-photo-window">
+              <img
+                className="portrait-photo"
+                src="/images/profile/preethi.webp"
+                alt="Preethi sitting on a garden bench under a tree"
+                width="941"
+                height="1672"
+                fetchPriority="high"
+                decoding="async"
+              />
+            </div>
           </div>
-          <span className="portrait-caption">PORTRAIT PLACEHOLDER</span>
+          <span className="portrait-caption">PREETHI</span>
           <Doodle kind="smile" className="portrait-smile" />
           <Doodle kind="spark" className="portrait-spark" />
         </div>

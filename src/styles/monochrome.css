@@ -1,28 +1,104 @@
-/* Grayscale lives on visual assets, never on pinned/fixed layout ancestors. */
+/* Final palette: keep filters off pinned/fixed layout ancestors. */
 :root {
-  --paper: #f4f4f4;
-  --paper-deep: #e9e9e9;
+  --theme-pink: #f6d6d6;
+  --theme-blue: #a2d2df;
+  --paper: var(--theme-pink);
+  --paper-deep: color-mix(in srgb, var(--theme-pink) 80%, white);
   --ink: #171717;
-  --ink-soft: #555;
+  --ink-soft: #4c4545;
   --rule: #17171733;
-  --indigo: #252525;
-  --indigo-light: #999;
+  --accent: var(--theme-blue);
+  --accent-ink: #315e6b;
+  --indigo: var(--accent-ink);
+  --indigo-light: var(--theme-blue);
+}
+.editorial-hero,
+.editorial-interests,
+.side-navigation {
+  --indigo: var(--accent-ink);
 }
 .editorial-hero {
-  --indigo: #252525;
-  --brush-ink: #252525;
+  --brush-ink: var(--accent-ink);
 }
-.portfolio-canvas img,
-.portfolio-canvas svg {
+.portfolio-canvas img {
   filter: grayscale(1);
+}
+.portfolio-canvas .hero-paint {
+  filter: none;
+  opacity: 0.7;
 }
 .editorial-hero .open-navigation,
 .persistent-open {
-  color: #fff;
-  background: #171717;
+  color: var(--ink);
+  background: var(--theme-blue);
 }
 .editorial-hero .open-navigation:hover,
 .persistent-open:hover {
-  color: #fff;
-  background: #333;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--theme-blue) 75%, white);
+}
+.editorial-hero .portfolio-title h1 {
+  position: relative;
+  z-index: 1;
+}
+.editorial-hero .portfolio-title > .doodle {
+  z-index: 2;
+}
+.editorial-hero .portfolio-title > .title-spark {
+  z-index: 3;
+  color: var(--theme-blue);
+  pointer-events: none;
+  left: -10px;
+  top: 4%;
+  transform: translateX(-100%) rotate(-12deg);
+}
+.editorial-hero .portrait-photo-window {
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+.editorial-hero .portrait-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 55% 85%;
+  transform: scale(1.65);
+}
+.editorial-hero .portrait-brush-ring {
+  stroke: var(--accent-ink);
+}
+.side-navigation {
+  background: var(--paper-deep);
+}
+.contact-archive .archive-doodle-scene {
+  background: var(--theme-blue);
+}
+.archive-handnote,
+.network-heading p,
+.gallery-theme-note,
+.archive-wordmark-mark {
+  color: var(--accent-ink);
+}
+.archive-social-name {
+  color: var(--accent-ink);
+}
+.network-group .ring-layer-5 {
+  fill: var(--paper-deep);
+}
+.network-skill:hover,
+.network-skill[aria-pressed="true"] {
+  color: var(--accent-ink);
+}
+.project-pagination button {
+  background: var(--theme-blue);
+  color: var(--ink);
+}
+@media (max-width: 560px) {
+  .editorial-hero .portfolio-title > .title-spark {
+    width: clamp(20px, 6vw, 28px);
+    height: clamp(20px, 6vw, 28px);
+    left: -6px;
+  }
 }

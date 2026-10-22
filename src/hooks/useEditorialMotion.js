@@ -19,7 +19,7 @@ export default function useEditorialMotion() {
       {
         motion: "(prefers-reduced-motion: no-preference)",
         desktop: "(min-width: 701px)",
-        projectDesktop: "(min-width: 901px) and (min-height: 701px)",
+        projectDesktop: "(min-width: 901px)",
       },
       (context) => {
         if (!context.conditions.motion) return;
