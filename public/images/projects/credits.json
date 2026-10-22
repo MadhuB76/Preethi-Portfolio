@@ -1,0 +1,56 @@
+[
+  {
+    "name": "concrete-light",
+    "author": "Raimo Lantelankallio",
+    "page": "https://unsplash.com/photos/modern-concrete-architecture-with-dramatic-light-and-shadow-W6ZYYtHCzis",
+    "source": "https://images.unsplash.com/photo-1766848752456-db83f7439758?w=1200&q=85&fm=webp&fit=max",
+    "license": "https://unsplash.com/license",
+    "purpose": "Temporary editorial imagery, not project work",
+    "bytes": 142990
+  },
+  {
+    "name": "geometric-shadow",
+    "author": "Johnny Ho",
+    "page": "https://unsplash.com/photos/concrete-walls-with-geometric-shadows-and-light-HpUAdTJ97to",
+    "source": "https://images.unsplash.com/photo-1759300631960-be501eb8ceea?w=1200&q=85&fm=webp&fit=max",
+    "license": "https://unsplash.com/license",
+    "purpose": "Temporary editorial imagery, not project work",
+    "bytes": 163494
+  },
+  {
+    "name": "white-lines",
+    "author": "Amal K Raju",
+    "page": "https://unsplash.com/photos/abstract-architectural-lines-with-light-and-shadow-qaO04vmpMd8",
+    "source": "https://images.unsplash.com/photo-1760284739389-8a833519d6a5?w=1200&q=85&fm=webp&fit=max",
+    "license": "https://unsplash.com/license",
+    "purpose": "Temporary editorial imagery, not project work",
+    "bytes": 82780
+  },
+  {
+    "name": "interior-shadow",
+    "author": "Dark Narrative",
+    "page": "https://unsplash.com/photos/geometric-shadows-on-concrete-walls-indoors-gt1TjsZMDoo",
+    "source": "https://images.unsplash.com/photo-1771976051060-378b9a6dfb62?w=1200&q=85&fm=webp&fit=max",
+    "license": "https://unsplash.com/license",
+    "purpose": "Temporary editorial imagery, not project work",
+    "bytes": 67106
+  },
+  {
+    "name": "white-staircase",
+    "author": "Z",
+    "page": "https://unsplash.com/photos/photo-of-white-staircase-ehMiO5aDXys",
+    "source": "https://images.unsplash.com/photo-1516739089214-59baa011fdb9?w=1200&q=85&fm=webp&fit=max",
+    "license": "https://unsplash.com/license",
+    "purpose": "Temporary editorial imagery, not project work",
+    "bytes": 103062
+  },
+  {
+    "name": "aalto-stairs",
+    "author": "Paul Povoroznuk",
+    "page": "https://unsplash.com/photos/unused-stairs-RRbQbCHlIZI",
+    "source": "https://images.unsplash.com/photo-1542793836-2d9719bb2b35?w=1200&q=85&fm=webp&fit=max",
+    "license": "https://unsplash.com/license",
+    "purpose": "Temporary editorial imagery, not project work",
+    "bytes": 95170
+  }
+]

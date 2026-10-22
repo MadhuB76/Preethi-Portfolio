@@ -1,0 +1,28 @@
+/* Grayscale lives on visual assets, never on pinned/fixed layout ancestors. */
+:root {
+  --paper: #f4f4f4;
+  --paper-deep: #e9e9e9;
+  --ink: #171717;
+  --ink-soft: #555;
+  --rule: #17171733;
+  --indigo: #252525;
+  --indigo-light: #999;
+}
+.editorial-hero {
+  --indigo: #252525;
+  --brush-ink: #252525;
+}
+.portfolio-canvas img,
+.portfolio-canvas svg {
+  filter: grayscale(1);
+}
+.editorial-hero .open-navigation,
+.persistent-open {
+  color: #fff;
+  background: #171717;
+}
+.editorial-hero .open-navigation:hover,
+.persistent-open:hover {
+  color: #fff;
+  background: #333;
+}

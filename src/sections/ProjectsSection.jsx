@@ -1,0 +1,179 @@
+import { useEffect, useRef, useState } from "react";
+import { projects } from "../data/editorial";
+import "../styles/projects-blueprint.css";
+
+function ProjectArtwork({ number, detail = false, alternate = false }) {
+  return (
+    <svg
+      viewBox={detail ? "200 160 370 400" : "0 0 900 700"}
+      preserveAspectRatio="xMidYMid slice"
+      role="img"
+      aria-label={`Image placeholder for project ${number}`}
+    >
+      <rect
+        x="-100"
+        y="-100"
+        width="1100"
+        height="900"
+        fill={alternate ? "#c6c8be" : "#dedfd8"}
+      />
+      <g
+        stroke="#555a4f"
+        fill="none"
+        strokeWidth="1.2"
+        transform={alternate ? "translate(900 0) scale(-1 1)" : undefined}
+      >
+        {number === "01" ? (
+          <>
+            <path d="M150 520V180h600v340zM150 180l150 100v240m450-340L600 280v240M300 280h300M150 520h600" />
+            {[250, 350, 450, 550, 650].map((x) => (
+              <path key={x} d={`M${x} 180v340`} />
+            ))}
+          </>
+        ) : number === "02" ? (
+          <>
+            <circle cx="450" cy="350" r="210" />
+            <circle cx="450" cy="350" r="140" />
+            <path d="M120 350h660M450 70v560M230 130l440 440m0-440L230 570" />
+          </>
+        ) : (
+          <path d="m145 470 300-280 310 280-310 100zM145 470V280l300-110 310 110v190M445 170v400M145 280l300 140 310-140M260 240v270m380-270v270" />
+        )}
+      </g>
+    </svg>
+  );
+}
+function ProjectImage({ project, index, detail = false }) {
+  const source = project.images?.[index] || project.image;
+  return (
+    <figure
+      className={detail ? "project-detail-image" : "project-editorial-image"}
+    >
+      {source ? (
+        <img
+          src={source}
+          alt={
+            project.temporaryImages
+              ? `Temporary architectural editorial photograph — ${detail ? "detail" : `view ${index + 1}`}`
+              : `${project.title} — ${detail ? "detail" : `view ${index + 1}`}`
+          }
+          width="900"
+          height="1100"
+          loading="eager"
+        />
+      ) : (
+        <ProjectArtwork
+          number={project.number}
+          detail={detail}
+          alternate={index === 1}
+        />
+      )}
+      {!source && <figcaption>IMAGE TO BE ADDED</figcaption>}
+      {source && project.temporaryImages && (
+        <figcaption className="temporary-photo-label">
+          TEMPORARY EDITORIAL
+        </figcaption>
+      )}
+    </figure>
+  );
+}
+export default function ProjectsSection() {
+  const section = useRef(null);
+  const [active, setActive] = useState(0);
+  useEffect(() => {
+    const update = (event) => setActive(event.detail.index);
+    window.addEventListener("portfolio:project", update);
+    return () => window.removeEventListener("portfolio:project", update);
+  }, []);
+  const navigate = (index) => {
+    const stops = JSON.parse(section.current.dataset.projectStops || "[]");
+    if (stops.length)
+      window.scrollTo({ top: stops[index], behavior: "smooth" });
+    else
+      section.current
+        .querySelectorAll(".project-screen")
+        .item(index)
+        .scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  return (
+    <section
+      id="projects"
+      ref={section}
+      tabIndex="-1"
+      className="portfolio-section editorial-projects project-showcase"
+      aria-label="Selected projects"
+    >
+      <div className="project-stage">
+        <div className="project-panels">
+          {projects.map((project, index) => (
+            <article
+              key={project.id}
+              className="publication-entry project-screen"
+              data-project={index}
+              aria-labelledby={`${project.id}-title`}
+            >
+              <div className="project-marker">
+                SELECTED WORK <span>0{index + 1} / 03</span>
+              </div>
+              <ProjectImage project={project} index={0} detail />
+              <div className="project-explanation">
+                <span className="project-kicker">
+                  PROJECT / {project.number}
+                </span>
+                <h2 id={`${project.id}-title`}>{project.title}</h2>
+                <p>{project.summary}</p>
+                {project.href ? (
+                  <a className="editorial-link" href={project.href}>
+                    View project ↗
+                  </a>
+                ) : (
+                  <span className="project-content-status">
+                    Project details forthcoming.
+                  </span>
+                )}
+              </div>
+              <div className="project-media-pair">
+                <ProjectImage project={project} index={0} />
+                <ProjectImage project={project} index={1} />
+              </div>
+              <div
+                className="project-cropped-title project-screen-title"
+                aria-hidden="true"
+              >
+                Projects
+              </div>
+            </article>
+          ))}
+        </div>
+        <div
+          className="project-cropped-title project-static-title"
+          aria-hidden="true"
+        >
+          Projects
+        </div>
+        <div className="project-stage-footer">
+          <span className="project-position" aria-live="polite">
+            0{active + 1} <span>/ 03</span>
+          </span>
+          <span className="project-scroll-hint">Scroll to explore →</span>
+          <div className="project-pagination">
+            <button
+              aria-label="Previous project"
+              disabled={active === 0}
+              onClick={() => navigate(active - 1)}
+            >
+              ←
+            </button>
+            <button
+              aria-label="Next project"
+              disabled={active === projects.length - 1}
+              onClick={() => navigate(active + 1)}
+            >
+              →
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

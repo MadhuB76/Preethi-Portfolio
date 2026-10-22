@@ -1,0 +1,417 @@
+@font-face {
+  font-family: "DM Sans";
+  src: url("/fonts/DMSans-Variable.ttf") format("truetype");
+  font-weight: 100 1000;
+  font-style: normal;
+  font-display: swap;
+}
+/* Keep the full introduction readable; compact the composition, not the type. */
+.editorial-hero {
+  font-family: "DM Sans", sans-serif;
+  padding-top: clamp(20px, 3vh, 36px);
+  padding-bottom: 16px;
+  gap: clamp(12px, 2vh, 24px);
+  isolation: isolate;
+}
+.editorial-hero > :not(.hero-paint) {
+  z-index: 1;
+}
+.editorial-hero .top-meta,
+.editorial-hero .hero-baseline {
+  position: relative;
+  font-family: "DM Sans", sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.035em;
+  color: #4a4a4a;
+}
+.editorial-hero .portfolio-title {
+  margin: 0 auto 32px;
+}
+.editorial-hero .portfolio-title h1 {
+  font-family: "DM Sans", sans-serif;
+  font-size: clamp(90px, 16vh, 170px);
+  font-weight: 850;
+  letter-spacing: -0.075em;
+}
+.editorial-hero .title-note {
+  bottom: -28%;
+  font-size: clamp(21px, 2vw, 29px);
+}
+.editorial-hero .hero-introduction {
+  max-width: 1140px;
+  grid-template-columns: 270px minmax(0, 640px);
+  gap: clamp(48px, 5vw, 85px);
+  padding-left: 50px;
+  margin: 0 auto;
+}
+.editorial-hero .portrait-composition {
+  width: clamp(210px, 18vw, 270px);
+}
+.editorial-hero .portrait-caption {
+  font:
+    11px/1.5 "DM Sans",
+    sans-serif;
+  letter-spacing: 0.07em;
+  margin-top: 13px;
+}
+.editorial-hero .hero-intro-copy {
+  padding: 0;
+  max-width: 640px;
+  margin: 0;
+}
+.editorial-hero .tiny-hello {
+  display: block;
+  font-size: 32px;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.editorial-hero .hero-intro-copy p {
+  font-size: 16px;
+  line-height: 1.55;
+  max-width: 62ch;
+  margin-bottom: 12px;
+  color: #383838;
+}
+.editorial-hero .hero-intro-copy .hero-lead {
+  font-size: clamp(19px, 1.5vw, 23px);
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  color: #191919;
+  max-width: 49ch;
+}
+.editorial-hero .hero-lead strong {
+  font-weight: 750;
+}
+.editorial-hero .hero-objective {
+  padding-top: 2px;
+}
+.hero-copy-ending {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+}
+.editorial-hero .hero-intro-copy .editorial-link {
+  font-size: 15px;
+  font-weight: 650;
+  gap: 24px;
+  flex-shrink: 0;
+}
+.editorial-hero .intro-annotations {
+  margin: 0;
+  gap: 12px;
+}
+.editorial-hero .intro-annotations .hand-note {
+  font-size: 27px;
+}
+.editorial-hero .intro-annotations .doodle {
+  width: 28px;
+  height: 28px;
+}
+.editorial-hero .intro-star {
+  top: 1px;
+  right: 6%;
+  width: 25px;
+  height: 25px;
+}
+.editorial-hero .open-navigation {
+  z-index: 3;
+  left: 24px;
+  top: 48%;
+  width: 66px;
+  height: 66px;
+  font-size: 25px;
+  transform: translateY(-50%) rotate(-7deg);
+}
+.editorial-hero .open-navigation:hover {
+  transform: translateY(-50%) rotate(3deg) scale(1.05);
+}
+.editorial-hero .hero-baseline {
+  gap: 25px;
+  font-size: 13px;
+  min-height: 44px;
+}
+.editorial-hero .hero-baseline a {
+  font-weight: 650;
+  white-space: nowrap;
+}
+.editorial-hero .hero-paint {
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+  width: min(600px, 48%);
+  max-width: none;
+  opacity: 0.58;
+}
+.hero-paint-top {
+  top: 0;
+  right: 0;
+}
+.hero-paint-bottom {
+  bottom: 0;
+  left: 0;
+  transform: rotate(180deg);
+}
+/* Larger labels stay visible, so navigation does not depend on hover. */
+.side-navigation {
+  --indigo: #7a7a7a;
+  font-family: "DM Sans", sans-serif;
+  width: 390px;
+}
+.side-navigation .drawer-top {
+  padding: 18px 24px;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.side-navigation .close-navigation {
+  border: 1px solid #cfcfcf;
+  background: #ebebeb;
+  border-radius: 50%;
+  color: #484848;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+}
+.close-navigation svg {
+  width: 30px;
+  height: 30px;
+  transition: transform 0.2s;
+}
+.close-navigation:hover svg {
+  transform: rotate(8deg);
+}
+.side-navigation nav {
+  padding: 15px 24px 15px 40px;
+  gap: 8px;
+  min-height: 420px;
+}
+.side-navigation .chapter-number {
+  font-size: 49px;
+  color: #727272;
+  min-width: 59px;
+}
+.side-navigation .chapter-description {
+  opacity: 1;
+  max-width: 190px;
+  gap: 5px;
+}
+.side-navigation .chapter-description strong {
+  font-size: 18px;
+  font-weight: 650;
+}
+.side-navigation .chapter-description > span {
+  font-size: 14px;
+  line-height: 1.4;
+  color: #575757;
+}
+.side-navigation nav a.active .chapter-description strong {
+  color: #595959;
+}
+.side-navigation nav a.active:before {
+  width: 6px;
+  height: 6px;
+}
+.side-navigation .drawer-credit {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  text-align: left;
+  padding: 20px 28px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #505050;
+  border-top: 1px solid #dedede;
+}
+.drawer-credit strong {
+  font-size: 20px;
+  color: #222222;
+  font-weight: 700;
+}
+.persistent-open {
+  font-family: "Caveat Brush", cursive;
+  font-size: 23px;
+  color: #1c1c1c;
+  background: #bbbbbb;
+}
+@media (max-width: 1100px) {
+  .editorial-hero .hero-introduction {
+    grid-template-columns: 210px minmax(0, 1fr);
+    gap: 44px;
+    padding-left: 35px;
+  }
+  .editorial-hero .portrait-composition {
+    width: 205px;
+  }
+  .editorial-hero .open-navigation {
+    left: 12px;
+    width: 56px;
+    height: 56px;
+  }
+  .editorial-hero .hero-intro-copy .hero-lead {
+    font-size: 19px;
+  }
+}
+@media (max-width: 800px) {
+  .editorial-hero {
+    padding-top: 24px;
+    gap: 26px;
+  }
+  .editorial-hero .portfolio-title h1 {
+    font-size: 16vw;
+  }
+  .editorial-hero .hero-introduction {
+    grid-template-columns: 165px minmax(0, 1fr);
+    gap: 30px;
+    padding-left: 22px;
+  }
+  .editorial-hero .portrait-composition {
+    width: 160px;
+  }
+  .editorial-hero .open-navigation {
+    left: 10px;
+    top: 41%;
+    width: 50px;
+    height: 50px;
+    font-size: 22px;
+  }
+  .editorial-hero .intro-annotations .doodle:last-child {
+    display: none;
+  }
+  .editorial-hero .hero-baseline {
+    font-size: 12px;
+  }
+}
+@media (max-width: 560px) {
+  .editorial-hero {
+    gap: 25px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  .editorial-hero .top-meta {
+    font-size: 12px;
+  }
+  .editorial-hero .portfolio-title {
+    margin: 14px auto 36px;
+  }
+  .editorial-hero .portfolio-title h1 {
+    font-size: 16vw;
+    letter-spacing: -0.075em;
+  }
+  .editorial-hero .title-note {
+    font-size: 20px;
+    bottom: -57%;
+  }
+  .editorial-hero .hero-introduction {
+    grid-template-columns: 1fr;
+    padding: 0;
+    gap: 28px;
+  }
+  .editorial-hero .portrait-composition {
+    width: 165px;
+    margin-left: 16px;
+  }
+  .editorial-hero .open-navigation {
+    left: 20px;
+    top: 234px;
+    width: 55px;
+    height: 55px;
+    font-size: 23px;
+  }
+  .editorial-hero .tiny-hello {
+    font-size: 32px;
+  }
+  .editorial-hero .hero-intro-copy p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .editorial-hero .hero-intro-copy .hero-lead {
+    font-size: 20px;
+    line-height: 1.45;
+  }
+  .editorial-hero .intro-star {
+    top: 1px;
+    right: 6%;
+  }
+  .editorial-hero .intro-annotations .hand-note {
+    font-size: 25px;
+  }
+  .editorial-hero .intro-annotations .doodle {
+    display: none;
+  }
+  .editorial-hero .hero-baseline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 20px;
+    font-size: 12px;
+  }
+  .editorial-hero .hero-baseline > span {
+    max-width: none;
+  }
+  .editorial-hero .hero-paint {
+    width: 85%;
+    opacity: 0.4;
+  }
+  .side-navigation {
+    width: min(390px, 100%);
+  }
+  .side-navigation nav {
+    padding-left: 30px;
+    padding-right: 22px;
+  }
+  .side-navigation nav a:nth-child(n) {
+    margin-left: 0;
+    gap: 18px;
+  }
+  .side-navigation .chapter-description strong {
+    font-size: 18px;
+  }
+}
+@media (min-width: 801px) and (max-height: 780px) {
+  .editorial-hero {
+    gap: 12px;
+    padding-top: 18px;
+    padding-bottom: 10px;
+  }
+  .editorial-hero .portfolio-title h1 {
+    font-size: clamp(95px, 17vh, 132px);
+  }
+  .editorial-hero .portfolio-title {
+    margin-bottom: 26px;
+  }
+  .editorial-hero .hero-introduction {
+    margin: 0 auto;
+  }
+  .editorial-hero .portrait-composition {
+    width: 190px;
+  }
+  .editorial-hero .hero-intro-copy p {
+    margin-bottom: 10px;
+  }
+  .editorial-hero .hero-baseline {
+    min-height: 44px;
+  }
+}
+@media (max-height: 600px) {
+  .side-navigation .drawer-top {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  .side-navigation nav {
+    min-height: 320px;
+    gap: 2px;
+  }
+  .side-navigation nav a {
+    min-height: 58px;
+  }
+  .side-navigation .chapter-number {
+    font-size: 38px;
+  }
+  .side-navigation .drawer-credit {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}

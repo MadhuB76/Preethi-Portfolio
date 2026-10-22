@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import ProgressBar from "../components/progressbar";
 
 export default function ComingSoon() {
@@ -121,3 +121,4 @@ export default function ComingSoon() {
     </div>
   );
 }
+

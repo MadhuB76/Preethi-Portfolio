@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="580" viewBox="0 0 900 580">
+  <defs>
+    <linearGradient id="edge-fade"><stop stop-color="white" stop-opacity="0"/><stop offset=".2" stop-color="white"/></linearGradient>
+    <mask id="soft-edge"><rect width="900" height="580" fill="url(#edge-fade)"/></mask>
+    <radialGradient id="wash"><stop stop-color="#a4b95e" stop-opacity=".47"/><stop offset=".62" stop-color="#b9cc81" stop-opacity=".3"/><stop offset="1" stop-color="#dce5bb" stop-opacity=".03"/></radialGradient>
+    <linearGradient id="pigment" x2=".3" y2="1"><stop stop-color="#b2c872" stop-opacity=".04"/><stop offset="1" stop-color="#6d8b30" stop-opacity=".36"/></linearGradient>
+    <filter id="water" x="-15%" y="-20%" width="130%" height="140%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency=".018 .026" numOctaves="3" seed="12" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="32" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="grain" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency=".48" numOctaves="3" seed="6" result="grain"/>
+      <feColorMatrix in="grain" type="saturate" values="0"/>
+      <feComposite in2="SourceGraphic" operator="in"/>
+      <feBlend in2="SourceGraphic" mode="soft-light"/>
+    </filter>
+  </defs>
+  <g mask="url(#soft-edge)">
+  <g filter="url(#water)">
+    <path fill="url(#wash)" d="M-40-30H930V186Q857 156 802 216T681 236Q614 253 593 302T485 333Q423 318 367 360T254 320Q214 276 167 299T84 240Q41 192-40 219Z"/>
+    <path fill="url(#pigment)" d="M-25 20Q78 48 123 105T230 155Q289 137 340 222T444 245Q510 187 575 239T711 226Q775 185 823 215T931 160V231Q855 229 818 264T714 266Q648 280 604 305T511 308Q454 285 401 312T302 298Q253 259 218 273T122 208Q67 176-25 174Z"/>
+    <path fill="url(#wash)" d="M508 377Q554 324 610 353T694 326Q741 295 768 341T845 367Q899 399 855 438T780 449Q750 494 681 474T581 503Q525 492 534 448T508 377Z"/>
+  </g>
+  <g opacity=".18" filter="url(#grain)"><path fill="#91a955" d="M0 0H900V135Q780 258 660 220T440 290Q323 321 227 212T0 170Z"/></g>
+  </g>
+</svg>

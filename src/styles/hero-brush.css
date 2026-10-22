@@ -1,0 +1,324 @@
+/* The opening page has its own green ink; later chapters retain their palette. */
+.editorial-hero {
+  --indigo: #7a7a7a;
+  --brush-ink: #8b8b8b;
+}
+.editorial-hero .hand-note {
+  font-family: "Caveat Brush", "Segoe Print", cursive;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--indigo);
+}
+.editorial-hero .brush-doodle {
+  color: var(--brush-ink);
+  overflow: visible;
+}
+.editorial-hero .brush-doodle path {
+  animation: none;
+  stroke-dasharray: none;
+}
+.editorial-hero .portfolio-title {
+  margin-bottom: 3vh;
+}
+.editorial-hero .title-spark {
+  width: 64px;
+  height: 64px;
+  top: 1%;
+  left: -2%;
+}
+.editorial-hero .title-note {
+  font-size: clamp(19px, 1.8vw, 28px);
+  bottom: -30%;
+  left: 9%;
+}
+.editorial-hero .title-smile,
+.editorial-hero .title-tick,
+.editorial-hero .title-small-flower,
+.editorial-hero .title-little-sprig {
+  position: absolute;
+}
+.editorial-hero .title-smile {
+  width: 38px;
+  height: 38px;
+  left: 29%;
+  top: 53%;
+  transform: rotate(-19deg);
+}
+.editorial-hero .title-tick {
+  width: 44px;
+  height: 44px;
+  left: 49%;
+  top: 43%;
+  transform: rotate(-13deg);
+}
+.editorial-hero .title-small-flower {
+  width: 29px;
+  height: 29px;
+  right: 21%;
+  top: 41%;
+  transform: rotate(14deg);
+}
+.editorial-hero .title-little-sprig {
+  width: 36px;
+  height: 43px;
+  left: 4%;
+  bottom: -22%;
+  transform: rotate(-24deg);
+}
+.editorial-hero .title-flower {
+  width: 39px;
+  height: 43px;
+  right: 2%;
+  bottom: -12%;
+}
+.editorial-hero .title-sprig {
+  width: 47px;
+  height: 66px;
+  right: -4%;
+  bottom: -4%;
+}
+.editorial-hero .hero-introduction {
+  max-width: 1080px;
+  grid-template-columns: minmax(220px, 300px) minmax(0, 500px);
+  gap: clamp(50px, 5vw, 85px);
+  padding-left: 70px;
+  margin-top: 35px;
+}
+.editorial-hero .portrait-composition {
+  width: clamp(210px, 19vw, 280px);
+}
+.editorial-hero .portrait-ring {
+  border: 0;
+  padding: 7px;
+  transform: none;
+}
+.editorial-hero .portrait-ring:after {
+  content: none;
+}
+.editorial-hero .portrait-ring .portrait-brush-ring {
+  position: absolute;
+  inset: -3%;
+  width: 106%;
+  height: 106%;
+  color: var(--brush-ink);
+  filter: none;
+  overflow: visible;
+  transform: rotate(-7deg);
+  pointer-events: none;
+}
+.editorial-hero .open-navigation {
+  left: -89px;
+  top: 7%;
+  width: 66px;
+  height: 66px;
+  background: #bbbbbb;
+  color: #1c1c1c;
+  font-family: "Caveat Brush", cursive;
+  font-size: 24px;
+  border-radius: 49% 52% 47% 51%;
+  transform: rotate(-7deg);
+}
+.editorial-hero .open-navigation:hover {
+  background: #cccccc;
+  transform: rotate(3deg) scale(1.05);
+}
+.editorial-hero .portrait-smile {
+  width: 40px;
+  height: 40px;
+  right: -46px;
+  top: 1%;
+}
+.editorial-hero .portrait-spark {
+  width: 34px;
+  height: 34px;
+  top: -26px;
+  right: -10px;
+}
+.editorial-hero .hero-intro-copy {
+  padding-bottom: 20px;
+}
+.editorial-hero .tiny-hello {
+  margin-bottom: 10px;
+}
+.editorial-hero .hero-intro-copy p {
+  font-size: clamp(14px, 1.12vw, 18px);
+  line-height: 1.5;
+}
+.editorial-hero .intro-star {
+  position: absolute;
+  top: -31px;
+  right: 24%;
+  width: 29px;
+  height: 29px;
+  transform: rotate(12deg);
+}
+.editorial-hero .intro-annotations {
+  margin-top: 4px;
+  gap: 18px;
+}
+.editorial-hero .intro-annotations .hand-note {
+  font-size: clamp(29px, 2.7vw, 39px);
+  line-height: 0.95;
+  transform: rotate(-3deg);
+}
+.editorial-hero .intro-annotations .doodle {
+  width: 40px;
+  height: 40px;
+}
+.editorial-hero ::selection {
+  background: #dfdfdf;
+}
+@media (max-width: 1100px) {
+  .editorial-hero .hero-introduction {
+    grid-template-columns: 220px minmax(0, 440px);
+    gap: 45px;
+    padding-left: 60px;
+  }
+  .editorial-hero .portrait-composition {
+    width: 210px;
+  }
+  .editorial-hero .open-navigation {
+    left: -73px;
+    width: 57px;
+    height: 57px;
+    font-size: 22px;
+  }
+}
+@media (max-width: 800px) {
+  .editorial-hero .hero-introduction {
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 32px;
+    padding-left: 40px;
+  }
+  .editorial-hero .portrait-composition {
+    width: 175px;
+  }
+  .editorial-hero .open-navigation {
+    left: -62px;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+  .editorial-hero .portrait-smile {
+    right: -29px;
+    width: 28px;
+    height: 28px;
+  }
+  .editorial-hero .portrait-spark {
+    right: -3px;
+    width: 26px;
+    height: 26px;
+  }
+  .editorial-hero .title-spark {
+    width: 44px;
+    height: 44px;
+  }
+  .editorial-hero .title-smile {
+    width: 27px;
+    height: 27px;
+  }
+  .editorial-hero .title-tick {
+    width: 31px;
+    height: 31px;
+  }
+  .editorial-hero .title-small-flower {
+    width: 22px;
+    height: 22px;
+  }
+  .editorial-hero .intro-annotations .hand-note {
+    font-size: 28px;
+  }
+  .editorial-hero .intro-annotations {
+    gap: 12px;
+  }
+}
+@media (max-width: 560px) {
+  .editorial-hero .portfolio-title {
+    margin-bottom: 30px;
+  }
+  .editorial-hero .title-spark {
+    width: 31px;
+    height: 31px;
+    top: -12%;
+  }
+  .editorial-hero .title-note {
+    font-size: 18px;
+    bottom: -53%;
+    left: 12%;
+  }
+  .editorial-hero .title-flower {
+    width: 22px;
+    height: 24px;
+  }
+  .editorial-hero .title-sprig {
+    width: 25px;
+    height: 36px;
+    right: -3%;
+  }
+  .editorial-hero .title-smile {
+    width: 20px;
+    height: 20px;
+  }
+  .editorial-hero .title-tick {
+    width: 23px;
+    height: 23px;
+  }
+  .editorial-hero .title-small-flower {
+    width: 17px;
+    height: 17px;
+  }
+  .editorial-hero .title-little-sprig {
+    width: 25px;
+    height: 29px;
+    bottom: -27%;
+  }
+  .editorial-hero .hero-introduction {
+    grid-template-columns: 1fr;
+    padding: 0;
+    gap: 34px;
+    margin-top: 12px;
+  }
+  .editorial-hero .portrait-composition {
+    width: 180px;
+    margin-left: 40px;
+  }
+  .editorial-hero .open-navigation {
+    left: -70px;
+    top: 10%;
+    width: 55px;
+    height: 55px;
+    font-size: 22px;
+  }
+  .editorial-hero .hero-intro-copy {
+    padding-bottom: 0;
+  }
+  .editorial-hero .hero-intro-copy p {
+    font-size: 14px;
+  }
+  .editorial-hero .intro-star {
+    right: 8%;
+    top: -15px;
+    width: 23px;
+    height: 23px;
+  }
+  .editorial-hero .intro-annotations .hand-note {
+    font-size: 28px;
+  }
+  .editorial-hero .intro-annotations .doodle {
+    width: 30px;
+    height: 30px;
+  }
+}
+@media (max-height: 700px) and (min-width: 801px) {
+  .editorial-hero .portrait-composition {
+    width: 185px;
+  }
+  .editorial-hero .hero-introduction {
+    margin-top: 20px;
+  }
+  .editorial-hero .intro-annotations .hand-note {
+    font-size: 28px;
+  }
+}
+
+

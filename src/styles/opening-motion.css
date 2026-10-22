@@ -1,0 +1,36 @@
+.opening-experience,
+.opening-stage {
+  position: relative;
+}
+.opening-stage.has-depth {
+  width: min(100%, 1600px) !important;
+  max-width: none !important;
+  isolation: isolate;
+  overflow: clip;
+  background: var(--paper);
+}
+.opening-stage.has-depth > #home {
+  position: relative;
+  z-index: 2;
+}
+.opening-stage.has-depth > #interests {
+  position: absolute;
+  top: var(--arrival-offset, 0px);
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  background: var(--paper);
+}
+html:has(.opening-stage.has-depth) {
+  scroll-behavior: auto;
+}
+.opening-experience.has-overlap {
+  position: sticky;
+  z-index: 1;
+}
+.opening-experience.has-overlap ~ .portfolio-section,
+.opening-experience.has-overlap ~ .portfolio-footer {
+  position: relative;
+  z-index: 4;
+  background: var(--paper);
+}

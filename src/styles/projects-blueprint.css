@@ -1,0 +1,296 @@
+.portfolio-section.project-showcase {
+  --project-edge: clamp(18px, 2vw, 32px);
+  background: var(--paper);
+  z-index: 4;
+  font-family: "DM Sans", sans-serif;
+  padding: 24px var(--project-edge) 0;
+  display: block;
+}
+.project-stage {
+  position: relative;
+}
+.project-panels {
+  display: block;
+}
+.project-showcase .project-screen {
+  display: block;
+  position: relative;
+  min-height: 620px;
+  height: calc(100svh - 24px);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.project-marker {
+  position: absolute;
+  top: 10px;
+  left: 80px;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: #5e5e5e;
+}
+.project-detail-image,
+.project-editorial-image {
+  position: relative;
+  margin: 0;
+  min-width: 0;
+  overflow: hidden;
+  background: #dedede;
+}
+.project-screen .project-detail-image {
+  position: absolute;
+  left: 0;
+  top: 56px;
+  width: 11%;
+  height: 25%;
+}
+.project-detail-image > img,
+.project-detail-image > svg,
+.project-editorial-image > img,
+.project-editorial-image > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.project-detail-image figcaption,
+.project-editorial-image figcaption {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  right: 6px;
+  font-size: 9px;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  color: #373737;
+}
+.project-explanation {
+  position: absolute;
+  left: 14%;
+  top: 94px;
+  width: 25%;
+  max-width: 340px;
+}
+.project-kicker {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: #676767;
+}
+.project-explanation h2 {
+  font:
+    italic 26px/1.1 Georgia,
+    serif;
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  margin: 16px 0 14px;
+  max-width: 20ch;
+}
+.project-explanation p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #535353;
+  max-width: 32ch;
+}
+.project-content-status {
+  display: block;
+  font-size: 11px;
+  margin-top: 25px;
+  color: #707070;
+}
+.project-explanation .editorial-link {
+  margin-top: 20px;
+  font-size: 13px;
+}
+.project-media-pair {
+  position: absolute;
+  right: 0;
+  top: 56px;
+  width: 47%;
+  height: 47%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.project-cropped-title {
+  position: absolute;
+  left: -0.045em;
+  bottom: -0.16em;
+  width: max-content;
+  margin: 0;
+  font-family: "Times New Roman", Georgia, serif;
+  font-size: clamp(280px, 34vw, 580px);
+  font-weight: 400;
+  line-height: 0.85;
+  letter-spacing: -0.065em;
+  pointer-events: none;
+  white-space: nowrap;
+  color: #181818;
+}
+.project-static-title {
+  display: none;
+}
+.has-project-stage .project-static-title {
+  display: block;
+}
+.has-project-stage .project-screen-title {
+  display: none;
+}
+.project-detail-image .temporary-photo-label,
+.project-editorial-image .temporary-photo-label {
+  color: #282828;
+  background: #f3f3f3e8;
+  padding: 4px 6px;
+  right: auto;
+  max-width: calc(100% - 16px);
+}
+.project-stage-footer {
+  display: none;
+}
+.project-showcase.has-project-stage .project-stage {
+  overflow: hidden;
+  height: calc(100svh - 24px);
+  min-height: 620px;
+}
+.has-project-stage .project-panels {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.project-showcase.has-project-stage .project-screen {
+  flex: 0 0 100%;
+  min-width: 100%;
+  height: 100%;
+}
+.has-project-stage .project-stage-footer {
+  display: flex;
+  position: absolute;
+  z-index: 4;
+  right: 0;
+  top: 57%;
+  align-items: center;
+  gap: 24px;
+  padding: 8px 0;
+}
+.project-position {
+  font-size: 16px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.project-position > span {
+  color: #6f6f6f;
+  font-size: 11px;
+}
+.project-scroll-hint {
+  font-size: 11px;
+  color: #5d5d5d;
+}
+.project-pagination {
+  display: flex;
+  gap: 8px;
+}
+.project-pagination button {
+  width: 44px;
+  height: 44px;
+  border: 1px solid #888888;
+  border-radius: 50%;
+  background: var(--paper);
+  font-size: 21px;
+}
+.project-pagination button:disabled {
+  opacity: 0.28;
+  cursor: default;
+}
+.project-pagination button:focus-visible {
+  outline: 2px solid #7a7a7a;
+  outline-offset: 3px;
+}
+.project-showcase:not(.has-project-stage) .project-screen + .project-screen {
+  margin-top: 40px;
+}
+@media (max-width: 1100px) and (min-width: 901px) and (min-height: 701px) {
+  .project-explanation {
+    top: 72px;
+    left: 14%;
+    width: 31%;
+  }
+  .project-explanation h2 {
+    font-size: 23px;
+  }
+  .project-explanation p {
+    font-size: 13px;
+  }
+}
+@media (max-width: 900px), (max-height: 700px) {
+  .portfolio-section.project-showcase {
+    padding: 22px var(--project-edge) 0;
+  }
+  .project-showcase .project-screen {
+    height: auto;
+    min-height: 100svh;
+    padding: 0 0 135px;
+    display: grid;
+    grid-template-columns: 26% 1fr;
+    gap: 22px 18px;
+  }
+  .project-marker {
+    position: static;
+    grid-column: 1/-1;
+    padding: 12px 0;
+    padding-left: 64px;
+  }
+  .project-screen .project-detail-image {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    height: 155px;
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .project-explanation {
+    position: static;
+    width: auto;
+    max-width: none;
+    grid-column: 2;
+    grid-row: 2;
+  }
+  .project-explanation h2 {
+    font-size: 24px;
+    margin: 10px 0 12px;
+  }
+  .project-explanation p {
+    font-size: 14px;
+  }
+  .project-content-status {
+    margin-top: 15px;
+  }
+  .project-media-pair {
+    position: static;
+    grid-column: 1/-1;
+    width: 100%;
+    height: auto;
+    min-height: 230px;
+    aspect-ratio: 1.3;
+  }
+  .project-cropped-title {
+    font-size: clamp(150px, 35vw, 340px);
+    bottom: -0.16em;
+  }
+  .project-showcase:not(.has-project-stage) .project-screen + .project-screen {
+    margin-top: 55px;
+  }
+}
+@media (min-width: 601px) and (max-width: 900px) {
+  .project-showcase .project-screen {
+    padding-bottom: 240px;
+  }
+}
+@media (max-height: 700px) and (min-width: 901px) {
+  .project-showcase .project-screen {
+    padding-bottom: 300px;
+  }
+}

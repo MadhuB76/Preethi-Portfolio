@@ -1,0 +1,316 @@
+.portfolio-section.neural-skills {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: var(--paper);
+  font-family: "DM Sans", sans-serif;
+  padding: 44px var(--gutter) 30px;
+}
+.skills-particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+.network-heading,
+.skills-network,
+.network-status {
+  position: relative;
+  z-index: 1;
+}
+.network-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding-left: 22px;
+}
+.network-heading h2 {
+  font:
+    400 13px/1.4 "DM Sans",
+    sans-serif;
+  letter-spacing: 0.1em;
+  margin: 0;
+}
+.network-heading p {
+  font:
+    26px/1.2 "Caveat Brush",
+    cursive;
+  color: #333;
+}
+.skills-network {
+  width: 100%;
+  max-width: 1200px;
+  margin: 44px auto 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 60px;
+  row-gap: 32px;
+}
+.network-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.network-web {
+  fill: none;
+  stroke: #999;
+  stroke-width: 0.65;
+}
+.network-web circle {
+  fill: #555;
+  stroke: none;
+}
+.network-route {
+  transition:
+    stroke 0.35s,
+    stroke-width 0.35s;
+}
+.network-route.is-active {
+  stroke: #333;
+  stroke-width: 1.1;
+}
+.network-group {
+  position: relative;
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  min-height: 230px;
+}
+.network-group.group-1,
+.network-group.group-3 {
+  margin-top: 100px;
+}
+.network-group.group-4 {
+  grid-column: 1 / -1;
+  width: 540px;
+  max-width: 100%;
+  justify-self: center;
+}
+.network-category {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  color: white;
+}
+.network-hub {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transition: transform 0.35s;
+}
+.hub-ring {
+  fill: var(--node-tone);
+  stroke: #333;
+  stroke-width: 0.6;
+}
+.ring-layer-0 {
+  opacity: 0.28;
+  stroke: none;
+}
+.ring-layer-1 {
+  opacity: 0.68;
+  stroke: none;
+}
+.ring-layer-2 {
+  fill: var(--node-tone);
+  stroke: #eee;
+  stroke-opacity: 0.4;
+}
+.ring-layer-3 {
+  fill: none;
+  stroke: #eee;
+  stroke-opacity: 0.6;
+}
+.ring-layer-4 {
+  fill: none;
+  stroke: #222;
+  stroke-opacity: 0.5;
+}
+.ring-layer-5 {
+  fill: #f4f4f4;
+  stroke: #222;
+  stroke-width: 0.8;
+}
+.network-number {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  color: #222;
+  letter-spacing: 0.04em;
+}
+.network-group.is-active .network-hub {
+  transform: scale(1.05);
+}
+.network-category:focus-visible {
+  outline: 2px solid #222;
+  outline-offset: 3px;
+}
+.network-copy {
+  position: relative;
+  margin-top: 22px;
+  background: var(--paper);
+  padding: 4px 0 12px;
+}
+.network-copy h3 {
+  margin: 0 0 12px;
+  font-size: clamp(18px, 1.7vw, 23px);
+  line-height: 1.15;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+.network-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 12px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.network-skills li {
+  max-width: 100%;
+}
+.network-skill {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  text-align: left;
+  max-width: 100%;
+  border: 0;
+  border-radius: 0;
+  padding: 6px 0;
+  background: transparent;
+  font:
+    400 15px/1.45 "DM Sans",
+    sans-serif;
+  color: #414141;
+  cursor: pointer;
+  text-decoration-color: #999;
+  text-underline-offset: 4px;
+  transition: color 0.2s;
+}
+.network-node-dot {
+  width: 3px;
+  height: 3px;
+  flex: 0 0 3px;
+  align-self: center;
+  background: #777;
+  border-radius: 50%;
+}
+.network-skill:hover,
+.network-skill[aria-pressed="true"] {
+  color: #111;
+  text-decoration: underline;
+}
+.network-skill[aria-pressed="true"] .network-node-dot {
+  background: #111;
+  box-shadow: 0 0 0 2px #ccc;
+}
+.network-skill:focus-visible {
+  outline: 2px solid #333;
+  outline-offset: 3px;
+}
+.network-status {
+  font:
+    14px/1.5 "DM Sans",
+    sans-serif;
+  min-height: 30px;
+  margin: 24px auto 0;
+  text-align: center;
+  color: #555;
+  max-width: 650px;
+}
+@media (max-width: 1000px) {
+  .skills-network {
+    column-gap: 28px;
+  }
+  .network-group {
+    grid-template-columns: 100px minmax(0, 1fr);
+    gap: 12px;
+  }
+  .network-category {
+    width: 100px;
+    height: 100px;
+  }
+  .network-copy {
+    margin-top: 10px;
+  }
+  .network-skill {
+    font-size: 14px;
+  }
+}
+@media (max-width: 700px) {
+  .portfolio-section.neural-skills {
+    padding: 42px 20px 24px;
+  }
+  .network-heading {
+    padding-left: 58px;
+    display: block;
+  }
+  .network-heading p {
+    margin-top: 12px;
+    font-size: 24px;
+  }
+  .skills-network {
+    grid-template-columns: 1fr;
+    margin-top: 30px;
+    row-gap: 28px;
+  }
+  .network-group {
+    min-height: 0;
+    grid-template-columns: 88px minmax(0, 1fr);
+    gap: 14px;
+  }
+  .network-group.group-1,
+  .network-group.group-3 {
+    margin-top: 0;
+  }
+  .network-group.group-4 {
+    grid-column: auto;
+    width: 100%;
+  }
+  .network-category {
+    width: 88px;
+    height: 88px;
+  }
+  .network-copy h3 {
+    font-size: 20px;
+  }
+  .network-skills {
+    gap: 0 10px;
+  }
+  .network-skill {
+    min-height: 44px;
+    font-size: 14px;
+    padding: 8px 0;
+  }
+  .network-art {
+    opacity: 0.55;
+  }
+  .network-status {
+    font-size: 13px;
+    margin-top: 32px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .neural-skills *,
+  .neural-skills *::before {
+    animation: none !important;
+    transition: none !important;
+  }
+  .network-group.is-active .network-hub {
+    transform: none;
+  }
+}
