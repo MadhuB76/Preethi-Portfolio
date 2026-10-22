@@ -1,26 +1,11 @@
+import SiteImage from "../components/SiteImage";
 import { useEffect, useRef, useState } from "react";
+import { gallerySizes, prepareImage } from "../lib/siteImages";
 import { interests } from "../data/editorial";
 import CharacterDoodle from "../components/CharacterDoodle";
 import "../styles/interests-collage.css";
 
-const decoded = new Map();
-function prepare(url) {
-  if (!decoded.has(url)) {
-    const image = new Image();
-    image.src = url;
-    decoded.set(
-      url,
-      image
-        .decode()
-        .then(() => true)
-        .catch(() => {
-          decoded.delete(url);
-          return false;
-        }),
-    );
-  }
-  return decoded.get(url);
-}
+const prepare = prepareImage;
 const frameImages = (theme) =>
   interests.map((interest, index) =>
     theme ? theme.images[index] : interest.image,
@@ -53,40 +38,42 @@ export default function InterestsSection() {
 
   useEffect(() => {
     let cancelled = false;
-    Promise.all(frameImages(theme).map(prepare)).then((results) => {
-      if (cancelled || !results.every(Boolean)) return;
-      const frames = [...gallery.current.querySelectorAll(".collage-frame")];
-      const originIndex = Math.max(
-        0,
-        interests.findIndex((interest) => interest.id === selected),
-      );
-      const rects = frames.map((frame) => frame.getBoundingClientRect());
-      const origin = rects[originIndex];
-      const x = origin.left + origin.width / 2;
-      const y = origin.top + origin.height / 2;
-      const distances = rects.map((rect) =>
-        Math.hypot(
-          rect.left + rect.width / 2 - x,
-          rect.top + rect.height / 2 - y,
-        ),
-      );
-      const max = Math.max(...distances, 1);
-      const wave = rects.map((rect, index) => ({
-        delay: reduced ? 0 : Math.round((distances[index] / max) * 420),
-        x: Math.max(0, Math.min(100, ((x - rect.left) / rect.width) * 100)),
-        y: Math.max(0, Math.min(100, ((y - rect.top) / rect.height) * 100)),
-      }));
-      setScene((last) =>
-        last.current === selected
-          ? last
-          : {
-              current: selected,
-              previous: last.current,
-              revision: last.revision + 1,
-              wave,
-            },
-      );
-    });
+    Promise.all(frameImages(theme).map((url) => prepare(url))).then(
+      (results) => {
+        if (cancelled || !results.every(Boolean)) return;
+        const frames = [...gallery.current.querySelectorAll(".collage-frame")];
+        const originIndex = Math.max(
+          0,
+          interests.findIndex((interest) => interest.id === selected),
+        );
+        const rects = frames.map((frame) => frame.getBoundingClientRect());
+        const origin = rects[originIndex];
+        const x = origin.left + origin.width / 2;
+        const y = origin.top + origin.height / 2;
+        const distances = rects.map((rect) =>
+          Math.hypot(
+            rect.left + rect.width / 2 - x,
+            rect.top + rect.height / 2 - y,
+          ),
+        );
+        const max = Math.max(...distances, 1);
+        const wave = rects.map((rect, index) => ({
+          delay: reduced ? 0 : Math.round((distances[index] / max) * 420),
+          x: Math.max(0, Math.min(100, ((x - rect.left) / rect.width) * 100)),
+          y: Math.max(0, Math.min(100, ((y - rect.top) / rect.height) * 100)),
+        }));
+        setScene((last) =>
+          last.current === selected
+            ? last
+            : {
+                current: selected,
+                previous: last.current,
+                revision: last.revision + 1,
+                wave,
+              },
+        );
+      },
+    );
     return () => {
       cancelled = true;
     };
@@ -142,15 +129,18 @@ export default function InterestsSection() {
   }, [cycling, automatic]);
 
   useEffect(() => {
-    const preload = () =>
-      interests.forEach((interest) => interest.images.forEach(prepare));
-    const idle = window.requestIdleCallback?.(preload);
-    const timer = idle === undefined ? setTimeout(preload, 600) : undefined;
-    return () => {
-      if (idle !== undefined) window.cancelIdleCallback(idle);
-      clearTimeout(timer);
-    };
-  }, []);
+    if (!visible || navigator.connection?.saveData) return;
+    const next =
+      interests[
+        (interests.findIndex((interest) => interest.id === automatic) + 1) %
+          interests.length
+      ];
+    const timer = setTimeout(
+      () => next.images.forEach((url) => prepare(url)),
+      1200,
+    );
+    return () => clearTimeout(timer);
+  }, [visible, automatic]);
 
   return (
     <section
@@ -239,19 +229,20 @@ export default function InterestsSection() {
               }}
             >
               <span className="frame-image">
-                <img
+                <SiteImage
                   key={`previous-${scene.revision}-${index}`}
                   className="gallery-photo gallery-photo-previous"
                   src={frameImages(previous)[index]}
                   alt=""
                   width="900"
                   height="900"
-                  decoding="async"
+                  sizes={gallerySizes}
+                  fetchPriority="low"
                   style={{
                     objectPosition: previous?.position || interest.position,
                   }}
                 />
-                <img
+                <SiteImage
                   key={`${scene.revision}-${index}`}
                   className="gallery-photo gallery-photo-current"
                   src={frameImages(current)[index]}
@@ -262,7 +253,8 @@ export default function InterestsSection() {
                   }
                   width="900"
                   height="900"
-                  decoding="async"
+                  sizes={gallerySizes}
+                  fetchPriority="low"
                   style={{
                     objectPosition: current?.position || interest.position,
                   }}

@@ -38,8 +38,8 @@ try {
       .locator(".gallery-photo-current")
       .first()
       .evaluate((el) => getComputedStyle(el).filter),
-    "grayscale(1) contrast(1.06)",
-    "photos use the monochrome editorial treatment",
+    "none",
+    "photos retain full colour",
   );
   const cutouts = await page.evaluate(async () =>
     Promise.all(
@@ -152,7 +152,11 @@ try {
       "theme changes do not rearrange pieces",
     );
     await page.waitForTimeout(1150);
-    await page.waitForFunction(() => [...document.querySelectorAll(".gallery-photo-previous")].every(el => +getComputedStyle(el).opacity === 0));
+    await page.waitForFunction(() =>
+      [...document.querySelectorAll(".gallery-photo-previous")].every(
+        (el) => +getComputedStyle(el).opacity === 0,
+      ),
+    );
     assert.ok(
       await page
         .locator(".gallery-photo-previous")

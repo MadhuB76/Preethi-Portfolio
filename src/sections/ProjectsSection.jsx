@@ -1,3 +1,4 @@
+import SiteImage from "../components/SiteImage";
 import { useEffect, useRef, useState } from "react";
 import { projects } from "../data/editorial";
 import "../styles/projects-blueprint.css";
@@ -43,14 +44,14 @@ function ProjectArtwork({ number, detail = false, alternate = false }) {
     </svg>
   );
 }
-function ProjectImage({ project, index, detail = false }) {
+function ProjectImage({ project, index, detail = false, eager = false }) {
   const source = project.images?.[index] || project.image;
   return (
     <figure
       className={detail ? "project-detail-image" : "project-editorial-image"}
     >
       {source ? (
-        <img
+        <SiteImage
           src={source}
           alt={
             project.temporaryImages
@@ -59,7 +60,13 @@ function ProjectImage({ project, index, detail = false }) {
           }
           width="900"
           height="1100"
-          loading="eager"
+          loading={eager ? "eager" : "lazy"}
+          fetchPriority="low"
+          sizes={
+            detail
+              ? "(max-width: 900px) 26vw, 12vw"
+              : "(max-width: 900px) 50vw, 24vw"
+          }
         />
       ) : (
         <ProjectArtwork
@@ -80,6 +87,20 @@ function ProjectImage({ project, index, detail = false }) {
 export default function ProjectsSection() {
   const section = useRef(null);
   const [active, setActive] = useState(0);
+  const [near, setNear] = useState(false);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setNear(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "1000px" },
+    );
+    observer.observe(section.current);
+    return () => observer.disconnect();
+  }, []);
   useEffect(() => {
     const update = (event) => setActive(event.detail.index);
     window.addEventListener("portfolio:project", update);
@@ -115,7 +136,7 @@ export default function ProjectsSection() {
               <div className="project-marker">
                 SELECTED WORK <span>0{index + 1} / 03</span>
               </div>
-              <ProjectImage project={project} index={0} detail />
+              <ProjectImage project={project} index={0} detail eager={near} />
               <div className="project-explanation">
                 <span className="project-kicker">
                   PROJECT / {project.number}
@@ -133,8 +154,8 @@ export default function ProjectsSection() {
                 )}
               </div>
               <div className="project-media-pair">
-                <ProjectImage project={project} index={0} />
-                <ProjectImage project={project} index={1} />
+                <ProjectImage project={project} index={0} eager={near} />
+                <ProjectImage project={project} index={1} eager={near} />
               </div>
               <div
                 className="project-cropped-title project-screen-title"

@@ -38,6 +38,11 @@ export default function App() {
             ? "interests"
             : "home";
       }
+      if (
+        window.scrollY + innerHeight >=
+        document.documentElement.scrollHeight - 2
+      )
+        current = "contact";
       setActive(current);
     };
     const scroll = () => {

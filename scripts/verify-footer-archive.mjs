@@ -20,39 +20,20 @@ try {
   await page.goto("http://127.0.0.1:5191/#contact");
   await page.evaluate(() => document.fonts.ready);
   await page.waitForTimeout(900);
-  assert.equal(
-    await page.locator(".archive-wordmark h2").innerText(),
-    "Preethi",
+  assert.equal(await page.locator(".footer-wordmark").innerText(), "Preethi");
+  assert.equal(await page.locator(".footer-garden").count(), 1);
+  assert.deepEqual(
+    await page
+      .locator(".footer-socials a")
+      .evaluateAll((els) => els.map((el) => el.href)),
+    site.socials.map((s) => s.url),
   );
-  assert.equal(await page.locator('.archive-directory a[href="#"]').count(), 0);
-  assert.equal(
-    await page.locator('.archive-socials a[target="_blank"]').count(),
-    site.socials.length,
-  );
-  if (!site.socials.length)
-    assert.match(
-      await page.locator(".archive-pending").innerText(),
-      /coming soon/,
-    );
-  if (!site.socials.length)
-    assert.deepEqual(
-      await page.locator(".archive-social-name").allTextContents(),
-      ["GitHub", "LinkedIn"],
-    );
   assert.equal(
     await page
       .getByRole("navigation", { name: "Footer navigation" })
       .getByRole("link")
       .count(),
-    4,
-  );
-  await page
-    .locator(".archive-doodle-scene img")
-    .evaluate((img) => img.decode());
-  assert.ok(
-    await page
-      .locator(".archive-doodle-scene img")
-      .evaluate((img) => img.naturalWidth > 0),
+    0,
   );
   for (const [width, height] of [
     [1440, 1000],
@@ -66,70 +47,33 @@ try {
     [1024, 600],
   ]) {
     await page.setViewportSize({ width, height });
-    await page.waitForTimeout(400);
-    await page.locator("#contact").evaluate((el) => scrollTo(0, el.offsetTop));
-    await page.waitForTimeout(250);
-    const composition = await page.locator("#contact").evaluate((el) => {
-      const section = el.getBoundingClientRect();
-      const credits = el
-        .querySelector(".archive-credits")
-        .getBoundingClientRect();
-      const wordmark = el
-        .querySelector(".archive-wordmark h2")
-        .getBoundingClientRect();
-      return {
-        height: section.height,
-        overflow: el.scrollHeight - el.clientHeight,
-        creditsBottom: credits.bottom - section.top,
-        wordmarkBottom: wordmark.bottom - section.top,
-        creditsTop: credits.top - section.top,
-        isLast: !el.nextElementSibling,
-      };
-    });
-    assert.ok(
-      Math.abs(composition.height - height) <= 1,
-      `one-screen footer at ${width}x${height}: ${JSON.stringify(composition)}`,
-    );
-    assert.ok(
-      composition.overflow <= 1,
-      `footer content fits at ${width}x${height}: ${JSON.stringify(composition)}`,
-    );
-    assert.ok(
-      composition.creditsBottom <= height + 1 &&
-        composition.wordmarkBottom <= composition.creditsTop + 1,
-      `credits fit below wordmark at ${width}x${height}: ${JSON.stringify(composition)}`,
-    );
-    assert.ok(composition.isLast, "no separate strip after contact");
-    assert.ok(
-      await page.locator(".archive-credits > span").evaluateAll((elements) =>
-        elements.every((el) => {
-          const rect = el.getBoundingClientRect();
-          return rect.left >= 0 && rect.right <= innerWidth + 1;
-        }),
-      ),
-      `both credits are visible at ${width}x${height}`,
-    );
+    await page.waitForTimeout(600);
+    await page.locator("#contact").scrollIntoViewIfNeeded();
     assert.ok(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,
       ),
-      `no overflow at ${width}`,
+      `no overflow ${width}`,
     );
     assert.ok(
       await page
-        .locator(".archive-wordmark h2")
+        .locator(".footer-wordmark")
         .evaluate((el) => el.scrollWidth <= el.clientWidth + 2),
-      `wordmark fits at ${width}`,
+      `wordmark fits ${width}`,
     );
-    const doodles = await page
-      .locator(".archive-doodle-scene > *")
+    const boxes = await page
+      .locator(".footer-back-top,.footer-socials a")
       .evaluateAll((els) =>
         els.map((el) => el.getBoundingClientRect().toJSON()),
       );
-    for (let i = 0; i < doodles.length; i++)
-      for (let j = i + 1; j < doodles.length; j++) {
-        const a = doodles[i],
-          b = doodles[j];
+    assert.ok(
+      boxes.every((b) => b.height >= 44),
+      "touch targets",
+    );
+    for (let i = 0; i < boxes.length; i++)
+      for (let j = i + 1; j < boxes.length; j++) {
+        const a = boxes[i],
+          b = boxes[j];
         assert.ok(
           !(
             a.x < b.x + b.width - 1 &&
@@ -137,66 +81,54 @@ try {
             a.y < b.y + b.height - 1 &&
             a.y + a.height > b.y + 1
           ),
-          "footer doodles do not overlap at " + width + "x" + height,
+          "no overlapping links",
         );
       }
-    const links = await page
-      .locator(".archive-directory a")
-      .evaluateAll((els) =>
-        els.map((el) => el.getBoundingClientRect().toJSON()),
-      );
     assert.ok(
-      links.every((box) => box.height >= 44),
-      `touch targets at ${width}`,
+      await page
+        .locator("#contact")
+        .evaluate((el) => {
+          const bounds = el.getBoundingClientRect();
+          return [...el.children].every(child => {
+            const box = child.getBoundingClientRect();
+            return box.top >= bounds.top && box.bottom <= bounds.bottom + 1;
+          });
+        }),
+      `footer contents not clipped ${width}`,
     );
-    for (let i = 0; i < links.length; i++)
-      for (let j = i + 1; j < links.length; j++)
-        assert.ok(
-          !(
-            links[i].x < links[j].x + links[j].width - 1 &&
-            links[i].x + links[i].width > links[j].x + 1 &&
-            links[i].y < links[j].y + links[j].height - 1 &&
-            links[i].y + links[i].height > links[j].y + 1
-          ),
-          `links do not overlap at ${width}`,
-        );
+    const placement = await page.evaluate(() => {
+      const back = document.querySelector('.footer-back-top').getBoundingClientRect();
+      const word = document.querySelector('.footer-wordmark').getBoundingClientRect();
+      const section = document.querySelector('#contact').getBoundingClientRect();
+      return { left: back.left < word.left, bottom: section.bottom - word.bottom,
+        compact: section.height <= Math.max(innerHeight, 500),
+        socialSize: parseFloat(getComputedStyle(document.querySelector('.footer-socials a')).fontSize) };
+    });
+    assert.ok(placement.left && placement.bottom <= 26, `bottom left/right alignment ${width}`);
+    assert.ok(placement.compact && placement.socialSize >= 26, `compact emphasized footer ${width}`);
     await page
       .locator("#contact")
-      .screenshot({ path: `artifacts/footer-archive-${width}.png` });
+      .screenshot({ path: `artifacts/footer-minimal-${width}.png` });
   }
-  await page.setViewportSize({ width: 1440, height: 1000 });
-  await page
-    .getByRole("navigation", { name: "Footer navigation" })
-    .getByRole("link", { name: /Projects/ })
-    .click();
-  await page.waitForTimeout(1200);
-  assert.equal(
-    await page
-      .locator(".persistent-open")
-      .getAttribute("class")
-      .then((s) => s.includes("at-home")),
-    false,
-  );
-  await page.goto("http://127.0.0.1:5191/#contact");
-  await page.waitForTimeout(900);
-  await page.getByRole("link", { name: "Preethi, back to home" }).click();
-  await page.waitForTimeout(1200);
-  assert.ok(
-    await page
-      .locator(".persistent-open")
-      .getAttribute("class")
-      .then((s) => s.includes("at-home")),
-  );
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("http://127.0.0.1:5191/#contact");
-  await page
-    .getByRole("navigation", { name: "Footer navigation" })
-    .getByRole("link", { name: /Skills/ })
-    .focus();
-  assert.equal(await page.locator(":focus").getAttribute("href"), "#about");
+  await page.locator('.footer-back-top').click();
+  await page.waitForTimeout(600);
+  assert.ok(
+    await page.evaluate(
+      () =>
+        scrollY < 2,
+    ),
+    "Back to top navigation",
+  );
+  await page.goto("http://127.0.0.1:5191/?footer=verify#contact");
+  await page.waitForTimeout(800);
+  assert.equal(
+    await page.locator(".side-navigation .active").getAttribute("href"),
+    "#contact",
+  );
   assert.deepEqual(errors, []);
   console.log(
-    "PASS: footer wordmark, local doodles, truthful social placeholders, four working chapter links, keyboard access, reduced motion, nine responsive sizes, readable touch targets and no overflow.",
+    "PASS: compact footer, bottom-right wordmark, bottom-left back to top, emphasized social links, nine responsive sizes and no clipping.",
   );
 } finally {
   await browser?.close();

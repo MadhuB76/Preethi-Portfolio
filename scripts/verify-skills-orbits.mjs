@@ -60,11 +60,9 @@ try {
     await page
       .locator(".portfolio-canvas img:not(.hero-paint)")
       .evaluateAll((images) =>
-        images.every((image) =>
-          getComputedStyle(image).filter.includes("grayscale(1)"),
-        ),
+        images.every((image) => getComputedStyle(image).filter === "none"),
       ),
-    "editorial photographs stay monochrome within the new theme",
+    "photographs display in full colour",
   );
   assert.ok(
     await page

@@ -92,3 +92,7 @@ Owner-approved colors: #F6D6D6 and #A2D2DF. Theme tokens and dark ink variants l
 ## Owner-supplied portrait
 
 Preethi Profile.png was provided directly by the owner for the hero portrait. public/images/profile/preethi.webp is an optimized WebP copy; the circular CSS crop focuses on Preethi rather than the surrounding trees. The photo retains the site’s editorial grayscale treatment. No generated or substituted face is used.
+
+## Colour imagery and minimal floral footer
+
+Pinterest visual directions: https://mx.pinterest.com/aranzadmar/editorial-collage/ and https://ph.pinterest.com/jayyynevss/minimal-flowers/ . Original SVG flowers follow the owner-supplied footer composition. Photos remain local; new free Unsplash sources and authors are recorded in public/images/projects/credits.json and public/images/gallery/credits.json. Responsive variants preserve the photographs in colour. All seven interest frames use different photos in every theme. The supplied portrait is shown in colour. The footer now links to the owner-confirmed GitHub and LinkedIn profiles.

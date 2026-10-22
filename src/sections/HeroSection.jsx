@@ -1,3 +1,4 @@
+import SiteImage from "../components/SiteImage";
 import Doodle from "../components/BrushDoodle";
 import "../styles/hero-brush.css";
 export default function HeroSection({ onOpen, triggerRef, open }) {
@@ -69,13 +70,15 @@ export default function HeroSection({ onOpen, triggerRef, open }) {
               />
             </svg>
             <div className="portrait-photo-window">
-              <img
+              <SiteImage
                 className="portrait-photo"
                 src="/images/profile/preethi.webp"
                 alt="Preethi sitting on a garden bench under a tree"
                 width="941"
                 height="1672"
                 fetchPriority="high"
+                loading="eager"
+                sizes="(max-width: 560px) 400px, 460px"
                 decoding="async"
               />
             </div>

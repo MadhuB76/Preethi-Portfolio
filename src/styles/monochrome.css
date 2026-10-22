@@ -21,7 +21,7 @@
   --brush-ink: var(--accent-ink);
 }
 .portfolio-canvas img {
-  filter: grayscale(1);
+  filter: none;
 }
 .portfolio-canvas .hero-paint {
   filter: none;
@@ -46,7 +46,7 @@
 }
 .editorial-hero .portfolio-title > .title-spark {
   z-index: 3;
-  color: var(--theme-blue);
+  color: var(--theme-pink);
   pointer-events: none;
   left: -10px;
   top: 4%;
@@ -101,4 +101,9 @@
     height: clamp(20px, 6vw, 28px);
     left: -6px;
   }
+}
+
+.editorial-hero .title-spark path {
+  stroke: #b97788;
+  stroke-width: 2.5;
 }

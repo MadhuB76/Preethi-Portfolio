@@ -30,8 +30,8 @@ try {
     await page
       .locator(".title-spark")
       .evaluate((el) => getComputedStyle(el).color),
-    "rgb(162, 210, 223)",
-    "hero star uses the finalized blue accent",
+    "rgb(246, 214, 214)",
+    "hero star uses the pink accent",
   );
   assert.ok(
     await page
@@ -222,7 +222,7 @@ try {
     );
     assert.ok(
       await page
-        .locator(".portfolio-section")
+        .locator(".portfolio-section:not(#contact)")
         .evaluateAll((es) =>
           es.every((e) => e.offsetHeight >= innerHeight - 1),
         ),
