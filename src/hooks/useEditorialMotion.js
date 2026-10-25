@@ -187,19 +187,33 @@ export default function useEditorialMotion() {
         };
         if (context.conditions.projectDesktop) {
           projects.classList.add("has-project-stage");
-          const duration = 5.05;
-          const stops = [1.05, 2.8, 4.6];
+          const transitionStart = 1.65;
+          const transitionInterval = 1.7;
+          const transitionCount = Math.max(0, screens.length - 1);
+          const duration = transitionCount
+            ? transitionStart + transitionCount * transitionInterval
+            : 2.55;
+          const stops = screens.map((_, index) =>
+            index === 0
+              ? 1.05
+              : transitionStart + 1.15 + (index - 1) * transitionInterval,
+          );
+          const transitionMidpoints = screens
+            .slice(1)
+            .map((_, index) => transitionStart + 0.4 + index * transitionInterval);
           const drafting = gsap.timeline({
             onUpdate() {
               projects.dataset.draftProgress = String(this.progress());
               const time = this.time();
-              announceProject(time < 2.05 ? 0 : time < 3.75 ? 1 : 2);
+              announceProject(
+                transitionMidpoints.filter((midpoint) => time >= midpoint).length,
+              );
             },
             scrollTrigger: {
               id: "project-drafting",
               trigger: projects,
               start: "top top",
-              end: () => `+=${innerHeight * 4.8}`,
+              end: () => `+=${innerHeight * (duration - 0.25)}`,
               pin: true,
               scrub: 0.5,
               invalidateOnRefresh: true,
@@ -224,18 +238,19 @@ export default function useEditorialMotion() {
               { autoAlpha: 0, xPercent: 0 },
               { autoAlpha: 1, duration: 0.45 },
               0.08,
-            )
-            .to(
+            );
+          for (let index = 1; index < screens.length; index += 1) {
+            drafting.to(
               ".project-panels",
-              { xPercent: -100, duration: 0.8, ease: "power1.inOut" },
-              1.65,
-            )
-            .to(
-              ".project-panels",
-              { xPercent: -200, duration: 0.8, ease: "power1.inOut" },
-              3.35,
-            )
-            .to({}, { duration: 0.9 }, 4.15);
+              {
+                xPercent: -100 * index,
+                duration: 0.8,
+                ease: "power1.inOut",
+              },
+              transitionStart + (index - 1) * transitionInterval,
+            );
+          }
+          drafting.to({}, { duration: 0.9 }, duration - 0.9);
           announceProject(0);
         }
 

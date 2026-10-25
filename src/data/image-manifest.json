@@ -799,35 +799,35 @@
       }
     ]
   },
-  "/images/projects/pastel-facade.webp": {
+  "/images/projects/supertuff-restaurant-menus.webp": {
     "width": 1200,
-    "height": 793,
+    "height": 944,
     "variants": [
       {
-        "src": "/images/optimized/pastel-facade-e61cf48a65f3-480.webp",
+        "src": "/images/optimized/supertuff-restaurant-menus-b59d43c7f858-480.webp",
         "width": 480,
-        "bytes": 35270
+        "bytes": 29034
       },
       {
-        "src": "/images/optimized/pastel-facade-ca265a59ccc5-960.webp",
+        "src": "/images/optimized/supertuff-restaurant-menus-f5354f890f46-960.webp",
         "width": 960,
-        "bytes": 101764
+        "bytes": 88684
       }
     ]
   },
-  "/images/projects/geometric-shadow.webp": {
+  "/images/projects/supertuff-agliolio-menus.webp": {
     "width": 1200,
-    "height": 1800,
+    "height": 1112,
     "variants": [
       {
-        "src": "/images/optimized/geometric-shadow-d0ac16b082f4-480.webp",
+        "src": "/images/optimized/supertuff-agliolio-menus-2ad7119279c9-480.webp",
         "width": 480,
-        "bytes": 8730
+        "bytes": 33138
       },
       {
-        "src": "/images/optimized/geometric-shadow-e60cd7c60157-960.webp",
+        "src": "/images/optimized/supertuff-agliolio-menus-e95d393eaf3d-960.webp",
         "width": 960,
-        "bytes": 28174
+        "bytes": 93614
       }
     ]
   },

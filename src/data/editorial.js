@@ -266,7 +266,7 @@ const projectEditorialImages = [
     "/images/projects/aalto-stairs.webp",
   ],
 ];
-export const projects = Array.from({ length: 3 }, (_, index) => ({
+export const projects = Array.from({ length: 2 }, (_, index) => ({
   id: `project-${index + 1}`,
   number: `0${index + 1}`,
   title: "Project title to be added",
@@ -278,3 +278,58 @@ export const projects = Array.from({ length: 3 }, (_, index) => ({
   href: "",
   tags: [],
 }));
+
+projects[0] = {
+  id: "project-1",
+  number: "01",
+  title: "SuperTuffMenus",
+  summary:
+    "A Shopify storefront for durable, washable menus made for restaurants, pubs and cafés. Developed with Liquid, with responsibility for managing and delivering the website.",
+  category: "Shopify development",
+  images: [
+    "/images/projects/supertuff-restaurant-menus.webp",
+    "/images/projects/supertuff-agliolio-menus.webp",
+  ],
+  imageAlts: [
+    "Red Onion restaurant menus from SuperTuffMenus",
+    "Photograph of Agliolio main and dessert menus from SuperTuffMenus",
+  ],
+  video: "/videos/supertuff-hero.mp4",
+  temporaryImages: false,
+  href: "https://supertuffmenus.com/",
+  tags: ["Shopify", "Liquid"],
+};
+
+projects[1] = {
+  id: "project-2",
+  number: "02",
+  title: "Madhu UX Portfolio",
+  summary:
+    "Freelance website development for Madhu Bavireddy, a UI/UX designer. The portfolio presents the designer’s profile, selected case studies, and contact details.",
+  category: "Freelance development",
+  images: [
+    "/images/projects/project-card.png",
+    "/images/projects/home.png",
+    "/images/projects/project-2.png",
+  ],
+  imageAlts: [
+    "XLR8 project feature from Madhu Bavireddy’s portfolio, with a motorsport app mockup",
+    "Homepage of Madhu Bavireddy’s designer portfolio with the large DESIGNER title",
+    "Full selected projects page from Madhu Bavireddy’s portfolio",
+  ],
+  temporaryImages: false,
+  href: "https://madhuux.vercel.app/",
+  tags: ["Freelance", "Portfolio development"],
+};
+
+// Third project is intentionally commented out until another project is ready.
+// {
+//   id: "project-3",
+//   number: "03",
+//   title: "Project title to be added",
+//   summary: "Original project summary, role, and technologies are awaiting the owner’s content.",
+//   images: projectEditorialImages[2],
+//   temporaryImages: true,
+//   href: "",
+//   tags: [],
+// },

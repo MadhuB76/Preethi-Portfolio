@@ -50,6 +50,21 @@ try {
   );
   await settled();
   assert.equal(await page.locator(".project-screen").count(), 3);
+  const featured = page.locator('.project-screen').first();
+  assert.equal(await featured.locator('h2').innerText(), 'SuperTuffMenus');
+  assert.match(await featured.locator('.project-explanation').innerText(), /Liquid/);
+  assert.equal(await featured.locator('.editorial-link').getAttribute('href'), 'https://supertuffmenus.com/');
+  assert.equal(await featured.locator('.temporary-photo-label').count(), 0);
+  assert.equal(await featured.locator('img').evaluateAll(images => new Set(images.map(image => image.getAttribute('src'))).size), 2);
+  assert.equal(await featured.locator('video').count(), 1);
+  assert.equal(await featured.locator('video').evaluate(video => video.controls), false);
+  assert.equal(await page.evaluate(() => getComputedStyle(document.documentElement).scrollbarWidth), 'none');
+  await page.waitForFunction(() => {
+    const video = document.querySelector('#projects video');
+    return video.readyState >= 2 && video.currentTime > 0 && !video.paused;
+  });
+  assert.ok(await featured.locator('img,video').evaluateAll(media => media.every(el => getComputedStyle(el).objectFit === 'cover')), 'real media fills every block');
+  assert.ok(await featured.locator('img').evaluateAll(images => images.every(image => !/brand|collection/.test(image.src))), 'no logo or illustrated menu collection');
   assert.equal(await page.locator(".project-media-pair figure").count(), 6);
   assert.equal(await page.locator(".project-detail-image").count(), 3);
   assert.equal(await page.locator(".showcase-rules").count(), 0);
@@ -59,7 +74,7 @@ try {
     .evaluateAll((images) =>
       Promise.all(images.map((image) => image.decode())),
     );
-  assert.equal(await page.locator("#projects img").count(), 9);
+  assert.equal(await page.locator("#projects img").count(), 8);
   assert.ok(
     await page
       .locator("#projects img")
@@ -165,6 +180,7 @@ try {
       .evaluate((el) => el.inert),
   );
   await page.screenshot({ path: "artifacts/projects-stage-02.png" });
+  assert.ok(await page.locator('#projects video').evaluate(video => video.paused), 'video pauses outside the visible project');
   await page.getByRole("button", { name: "Next project", exact: true }).click();
   await page.waitForFunction(
     () => document.querySelector("#projects").dataset.activeProject === "2",
@@ -205,6 +221,7 @@ try {
   );
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.waitForTimeout(300);
+  assert.ok(await page.locator('#projects video').evaluate(video => video.paused), 'reduced motion pauses autoplay');
   assert.equal(await page.locator(".has-project-stage").count(), 0);
   assert.ok(
     await page
@@ -282,6 +299,15 @@ try {
       });
     }
   }
+  const fallbackPage = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+  await fallbackPage.route('**/videos/supertuff-hero.mp4', route => route.abort());
+  await fallbackPage.goto('http://127.0.0.1:5183/#projects');
+  await fallbackPage.waitForFunction(() => {
+    const project = document.querySelector('.project-screen');
+    const image = project.querySelector('.project-media-pair figure:first-child img');
+    return !project.querySelector('video') && image?.naturalWidth > 0;
+  });
+  await fallbackPage.close();
   assert.deepEqual(errors, []);
   console.log(
     "PASS: three horizontal projects; cropped editorial titles and paired images; forward/backward controls; reversible scroll; one Interests overlap; hidden-panel inert handling; reduced-motion stack; responsive vertical fallback; no overflow.",

@@ -45,18 +45,20 @@ function ProjectArtwork({ number, detail = false, alternate = false }) {
   );
 }
 function ProjectImage({ project, index, detail = false, eager = false }) {
-  const source = project.images?.[index] || project.image;
+  const imageIndex = detail && project.images?.[2] ? 2 : index;
+  const source = project.images?.[imageIndex] || project.image;
   return (
     <figure
-      className={detail ? "project-detail-image" : "project-editorial-image"}
+      className={`${detail ? "project-detail-image" : "project-editorial-image"}${project.temporaryImages ? "" : " project-product-image"}`}
     >
       {source ? (
         <SiteImage
           src={source}
           alt={
-            project.temporaryImages
+            project.imageAlts?.[imageIndex] ||
+            (project.temporaryImages
               ? `Temporary architectural editorial photograph — ${detail ? "detail" : `view ${index + 1}`}`
-              : `${project.title} — ${detail ? "detail" : `view ${index + 1}`}`
+              : `${project.title} — ${detail ? "detail" : `view ${index + 1}`}`)
           }
           width="900"
           height="1100"
@@ -81,6 +83,53 @@ function ProjectImage({ project, index, detail = false, eager = false }) {
           TEMPORARY EDITORIAL
         </figcaption>
       )}
+    </figure>
+  );
+}
+function ProjectVideo({ project }) {
+  const videoRef = useRef(null);
+  const [failed, setFailed] = useState(false);
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || failed) return;
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let visible = false;
+    const update = () => {
+      if (visible && !video.getAttribute("src")) video.src = project.video;
+      if (visible && !motion.matches && !document.hidden)
+        video.play().catch(() => {});
+      else video.pause();
+    };
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+        update();
+      },
+      { threshold: 0.25 },
+    );
+    observer.observe(video);
+    motion.addEventListener("change", update);
+    document.addEventListener("visibilitychange", update);
+    return () => {
+      observer.disconnect();
+      motion.removeEventListener("change", update);
+      document.removeEventListener("visibilitychange", update);
+      video.pause();
+    };
+  }, [project.video, failed]);
+  if (failed) return <ProjectImage project={project} index={0} eager />;
+  return (
+    <figure className="project-editorial-image project-video">
+      <video
+        ref={videoRef}
+        poster={project.images[0]}
+        aria-label={`${project.title} original homepage hero video`}
+        muted
+        loop
+        playsInline
+        preload="none"
+        onError={() => setFailed(true)}
+      />
     </figure>
   );
 }
@@ -134,7 +183,7 @@ export default function ProjectsSection() {
               aria-labelledby={`${project.id}-title`}
             >
               <div className="project-marker">
-                SELECTED WORK <span>0{index + 1} / 03</span>
+                SELECTED WORK <span>{project.number} / {String(projects.length).padStart(2, "0")}</span>
               </div>
               <ProjectImage project={project} index={0} detail eager={near} />
               <div className="project-explanation">
@@ -142,10 +191,20 @@ export default function ProjectsSection() {
                   PROJECT / {project.number}
                 </span>
                 <h2 id={`${project.id}-title`}>{project.title}</h2>
+                {project.tags.length > 0 && (
+                  <p className="project-technologies">
+                    {project.tags.join(" / ")}
+                  </p>
+                )}
                 <p>{project.summary}</p>
                 {project.href ? (
-                  <a className="editorial-link" href={project.href}>
-                    View project ↗
+                  <a
+                    className="editorial-link"
+                    href={project.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Visit website ↗
                   </a>
                 ) : (
                   <span className="project-content-status">
@@ -154,7 +213,11 @@ export default function ProjectsSection() {
                 )}
               </div>
               <div className="project-media-pair">
-                <ProjectImage project={project} index={0} eager={near} />
+                {project.video ? (
+                  <ProjectVideo project={project} />
+                ) : (
+                  <ProjectImage project={project} index={0} eager={near} />
+                )}
                 <ProjectImage project={project} index={1} eager={near} />
               </div>
               <div
@@ -174,7 +237,7 @@ export default function ProjectsSection() {
         </div>
         <div className="project-stage-footer">
           <span className="project-position" aria-live="polite">
-            0{active + 1} <span>/ 03</span>
+            {String(active + 1).padStart(2, "0")} <span>/ {String(projects.length).padStart(2, "0")}</span>
           </span>
           <span className="project-scroll-hint">Scroll to explore →</span>
           <div className="project-pagination">

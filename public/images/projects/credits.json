@@ -79,5 +79,28 @@
     "purpose": "Temporary editorial imagery, not project work",
     "bytes": 227154,
     "author": "Mick Haupt"
+  },
+  {
+    "name": "supertuff-restaurant-menus",
+    "page": "https://supertuffmenus.com/",
+    "source": "https://supertuffmenus.com/cdn/shop/files/Red_Onion_a_la_cart_and_dessert_SuperTuffMenus.jpg?width=1200",
+    "purpose": "SuperTuffMenus project showcase; imagery from the supplied project website",
+    "attribution": "SuperTuffMenus; original brand and product imagery",
+    "bytes": 197172
+  },
+  {
+    "name": "supertuff-agliolio-menus",
+    "page": "https://supertuffmenus.com/",
+    "source": "https://supertuffmenus.com/cdn/shop/files/Agliolio_main_and_dessert_SuperTuffMenus.jpg?width=1200",
+    "purpose": "SuperTuffMenus project showcase; imagery from the supplied project website",
+    "attribution": "SuperTuffMenus; original brand and product imagery",
+    "bytes": 188418
+  },
+  {
+    "name": "supertuff-hero",
+    "page": "https://supertuffmenus.com/",
+    "source": "https://cdn.shopify.com/videos/c/o/v/e97189ea7ca64997b45466a11025e138.mp4",
+    "purpose": "Original SuperTuffMenus homepage hero video",
+    "bytes": 9457456
   }
 ]

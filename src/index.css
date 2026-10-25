@@ -27,6 +27,14 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 0;
 }
+html,
+body {
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
 body {
   margin: 0;
   min-width: 320px;
@@ -1727,5 +1735,5 @@ img {
   }
 }
 html {
-  scrollbar-gutter: stable;
+  scrollbar-gutter: auto;
 }

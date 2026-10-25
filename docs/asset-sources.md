@@ -96,3 +96,7 @@ Preethi Profile.png was provided directly by the owner for the hero portrait. pu
 ## Colour imagery and minimal floral footer
 
 Pinterest visual directions: https://mx.pinterest.com/aranzadmar/editorial-collage/ and https://ph.pinterest.com/jayyynevss/minimal-flowers/ . Original SVG flowers follow the owner-supplied footer composition. Photos remain local; new free Unsplash sources and authors are recorded in public/images/projects/credits.json and public/images/gallery/credits.json. Responsive variants preserve the photographs in colour. All seven interest frames use different photos in every theme. The supplied portrait is shown in colour. The footer now links to the owner-confirmed GitHub and LinkedIn profiles.
+# SuperTuffMenus project
+
+Project 1 uses the original homepage hero video plus real Red Onion and Agliolio menu photographs from [the supplied project website](https://supertuffmenus.com/) and its gallery. Original imagery belongs to SuperTuffMenus; source URLs are recorded in `public/images/projects/credits.json`. Local WebP versions, responsive variants and a local MP4 avoid third-party runtime media requests. The video loads when visible, pauses offscreen, respects reduced motion and falls back to the real photograph on failure. The overview is paraphrased from the website. Preethi confirmed her role as Shopify developer using Liquid and responsibility for managing and delivering the website. No performance results or additional technologies are claimed.
+
